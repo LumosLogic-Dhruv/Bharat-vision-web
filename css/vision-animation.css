@@ -1,0 +1,198 @@
+/* VISION Text Animation */
+.vision-text-wrapper {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.vision-text {
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, #0066cc 0%, #00a3ff 50%, #0066cc 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    animation: visionEntrance 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+               fluidMotion 4s ease-in-out infinite 1.5s;
+    filter: blur(0);
+    transform-style: preserve-3d;
+}
+
+.vision-text::before {
+    content: 'VISION';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #0066cc, #00a3ff, #0066cc);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+    z-index: 2;
+}
+
+.vision-text::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(circle, rgba(0, 102, 204, 0.4), transparent 70%);
+    filter: blur(30px);
+    opacity: 0;
+    animation: glowPulse 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes visionEntrance {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: scale(0.8) translateZ(-100px);
+    }
+    50% {
+        opacity: 0.7;
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1) translateZ(0);
+    }
+}
+
+@keyframes fluidMotion {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+.vision-text:hover {
+    animation: visionHover 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+               fluidMotion 2s ease-in-out infinite;
+    cursor: default;
+}
+
+@keyframes visionHover {
+    0% {
+        transform: perspective(1000px) rotateX(0) rotateY(0) scale(1);
+    }
+    50% {
+        transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.05);
+    }
+    100% {
+        transform: perspective(1000px) rotateX(0) rotateY(0) scale(1.02);
+    }
+}
+
+.vision-text:hover::after {
+    animation: glowIntensify 0.8s ease-in-out forwards, glowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes glowIntensify {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.9;
+        filter: blur(40px);
+    }
+}
+
+.products {
+    position: relative;
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #0a0e1a 100%);
+    overflow: hidden;
+}
+
+.products::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(0, 102, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 163, 255, 0.06) 0%, transparent 50%);
+    animation: backgroundShift 15s ease-in-out infinite;
+    z-index: 0;
+}
+
+.products::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg, rgba(0, 102, 204, 0.03) 1px, transparent 1px),
+                      linear-gradient(0deg, rgba(0, 102, 204, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+@keyframes backgroundShift {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(20px, -20px) scale(1.05);
+    }
+}
+
+.products .container {
+    position: relative;
+    z-index: 1;
+}
+
+.products .section-header h2 {
+    color: #fff;
+}
+
+.products .section-header p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.vision-text,
+.vision-text::before,
+.vision-text::after {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+    .vision-text {
+        font-size: 48px;
+        letter-spacing: 4px;
+    }
+}

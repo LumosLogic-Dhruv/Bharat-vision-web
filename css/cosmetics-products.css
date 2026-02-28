@@ -1,0 +1,109 @@
+/* Cosmetics Products Grid */
+.cosmetics-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.cosmetics-products-grid .product-card-new {
+    background: linear-gradient(135deg, #0444C2, #3e67ba);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,102,204,0.3);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.cosmetics-products-grid .product-card-new:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(0,102,204,0.5);
+}
+
+.cosmetics-products-grid .product-card-image {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cosmetics-products-grid .product-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    padding: 20px;
+}
+
+.cosmetics-products-grid .product-card-new:hover .product-card-image img {
+    transform: scale(1.15) rotate(2deg);
+}
+
+.cosmetics-products-grid .product-card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cosmetics-products-grid .product-card-content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .cosmetics-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cosmetics-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .cosmetics-products-grid .product-card-image {
+        height: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cosmetics-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .cosmetics-products-grid .product-card-image {
+        height: 200px;
+    }
+
+    .cosmetics-products-grid .product-card-content h3 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cosmetics-products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cosmetics-products-grid .product-card-image {
+        height: 220px;
+    }
+}

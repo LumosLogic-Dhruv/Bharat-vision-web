@@ -1,0 +1,34 @@
+/* Product Title Blue Color - Applied Across All Pages */
+
+/* Home Page - Product Cards */
+.product-card-content h3,
+.product-card-new h3 {
+    color: #1e88e5 !important;
+}
+
+/* Pharmaceutical, Automobile, Cosmetics Pages - Product Cards */
+.pharma-products-grid .product-card-content h3,
+.automobile-products-grid .product-card-content h3,
+.cosmetics-products-grid .product-card-content h3 {
+    color: #1e88e5 !important;
+}
+
+/* Products Page - Product Showcase Cards */
+.product-showcase-content h3 {
+    color: #1e88e5 !important;
+}
+
+/* Individual Product Detail Pages - Main Title */
+.product-title {
+    color: #1e88e5 !important;
+}
+
+/* Related Products Section */
+.related-card h3 {
+    color: #1e88e5 !important;
+}
+
+/* Hover state remains functional */
+.related-card:hover h3 {
+    color: #0066cc !important;
+}

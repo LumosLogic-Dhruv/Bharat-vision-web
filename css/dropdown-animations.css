@@ -1,0 +1,28 @@
+/* ==========================================================
+   Dropdown Animations — smooth panel entrance
+   Loaded early; header.css overrides animation:none to
+   prevent conflicts on mobile.
+   ========================================================== */
+
+/* Smooth entrance animation for desktop dropdown panel */
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation only when dropdown becomes visible */
+.dropdown:hover .dropdown-menu,
+.dropdown.open .dropdown-menu {
+    animation: dropdownFadeIn 0.2s ease forwards;
+}
+
+/* Smooth chevron rotation transition */
+.dropdown > a i {
+    transition: transform 0.25s ease;
+}
