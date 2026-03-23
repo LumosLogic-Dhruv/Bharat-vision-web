@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="250" viewBox="0 0 300 250">
+  <rect width="300" height="250" fill="#f0f4ff" rx="12"/>
+  <!-- Washer (flat ring) with 3D perspective -->
+  <ellipse cx="150" cy="115" rx="80" ry="20" fill="#d6e4ff" stroke="#1a56db" stroke-width="3"/>
+  <rect x="70" y="75" width="160" height="40" fill="#d6e4ff"/>
+  <rect x="70" y="75" width="160" height="40" fill="none" stroke="#1a56db" stroke-width="3"/>
+  <ellipse cx="150" cy="75" rx="80" ry="20" fill="#4b7cf3" stroke="#1a56db" stroke-width="3"/>
+  <!-- Inner hole top -->
+  <ellipse cx="150" cy="75" rx="28" ry="7" fill="#f0f4ff" stroke="#1a56db" stroke-width="2"/>
+  <!-- Inner hole side -->
+  <rect x="122" y="75" width="56" height="40" fill="#e8eeff"/>
+  <line x1="122" y1="75" x2="122" y2="115" stroke="#1a56db" stroke-width="2"/>
+  <line x1="178" y1="75" x2="178" y2="115" stroke="#1a56db" stroke-width="2"/>
+  <!-- Inner hole bottom -->
+  <ellipse cx="150" cy="115" rx="28" ry="7" fill="#f0f4ff" stroke="#1a56db" stroke-width="2"/>
+  <text x="150" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a56db">Washers</text>
+</svg>

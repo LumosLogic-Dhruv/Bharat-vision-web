@@ -1,0 +1,4 @@
+.claude/
+*.md
+update-products.ps1
+test-products.html

@@ -52,53 +52,101 @@ class CinematicStats {
 // Inspection Products Slider
 class InspectionSlider {
     constructor() {
+        this.wrapper = document.querySelector('.inspect-carousel-wrapper');
         this.container = document.getElementById('inspectionGrid');
         this.prevBtn = document.getElementById('inspectPrev');
         this.nextBtn = document.getElementById('inspectNext');
-        this.scrollAmount = 320;
+        this.autoSpeed = 0.8;       // px per frame for auto-scroll
+        this.cardWidth = 310;       // card width + gap for arrow jumps
+        this.isAnimating = false;   // true only during arrow click animation
+        this.isHovered = false;     // true when mouse is over slider
+        this.resumeTimer = null;
         this.init();
     }
 
     init() {
-        if (!this.container || !this.prevBtn || !this.nextBtn) return;
+        if (!this.wrapper || !this.container || !this.prevBtn || !this.nextBtn) return;
 
-        this.prevBtn.addEventListener('click', () => this.scroll('left'));
-        this.nextBtn.addEventListener('click', () => this.scroll('right'));
+        // Wait for cards to render so scrollWidth is accurate
+        setTimeout(() => {
+            this.wrapper.scrollLeft = this.container.scrollWidth / 3;
+            this.loop();
+        }, 150);
 
-        // Touch swipe support
-        let startX = 0;
-        this.container.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
+        // Arrow buttons — left goes left, right goes right
+        this.prevBtn.addEventListener('click', () => this.arrowScroll('left'));
+        this.nextBtn.addEventListener('click', () => this.arrowScroll('right'));
+
+        // Pause auto-scroll on hover
+        this.wrapper.addEventListener('mouseenter', () => { this.isHovered = true; });
+        this.wrapper.addEventListener('mouseleave', () => { this.isHovered = false; });
+
+        // Touch swipe
+        let touchStartX = 0;
+        this.wrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            this.isHovered = true;
+        }, { passive: true });
+        this.wrapper.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) this.arrowScroll(diff > 0 ? 'right' : 'left');
+            setTimeout(() => { this.isHovered = false; }, 1200);
         });
+    }
 
-        this.container.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            if (Math.abs(diff) > 50) {
-                this.scroll(diff > 0 ? 'right' : 'left');
+    // Single unified RAF loop — only auto-scrolls when not animating and not hovered
+    loop() {
+        if (!this.isHovered && !this.isAnimating) {
+            this.wrapper.scrollLeft += this.autoSpeed;
+            this.infiniteClamp();
+        }
+        requestAnimationFrame(() => this.loop());
+    }
+
+    // Silently jump back/forward to keep infinite illusion
+    infiniteClamp() {
+        const third = this.container.scrollWidth / 3;
+        if (this.wrapper.scrollLeft >= third * 2) {
+            this.wrapper.scrollLeft -= third;
+        } else if (this.wrapper.scrollLeft <= 0) {
+            this.wrapper.scrollLeft += third;
+        }
+    }
+
+    // Smooth arrow scroll — blocks auto-scroll during animation
+    arrowScroll(direction) {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        this.isHovered = true;
+
+        const startPos = this.wrapper.scrollLeft;
+        const delta = direction === 'left' ? -this.cardWidth : this.cardWidth;
+        const endPos = startPos + delta;
+        const duration = 480;
+        let startTime = null;
+
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            // Ease-in-out cubic
+            const ease = progress < 0.5
+                ? 4 * progress * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+            this.wrapper.scrollLeft = startPos + delta * ease;
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                this.wrapper.scrollLeft = endPos;
+                this.infiniteClamp();
+                this.isAnimating = false;
+                // Resume auto-scroll after a short pause
+                clearTimeout(this.resumeTimer);
+                this.resumeTimer = setTimeout(() => { this.isHovered = false; }, 900);
             }
-        });
-
-        this.updateButtons();
-        this.container.addEventListener('scroll', () => this.updateButtons());
-    }
-
-    scroll(direction) {
-        const scrollLeft = this.container.scrollLeft;
-        const targetScroll = direction === 'left'
-            ? scrollLeft - this.scrollAmount
-            : scrollLeft + this.scrollAmount;
-
-        this.container.scrollTo({
-            left: targetScroll,
-            behavior: 'smooth'
-        });
-    }
-
-    updateButtons() {
-        const maxScroll = this.container.scrollWidth - this.container.clientWidth;
-        this.prevBtn.classList.toggle('disabled', this.container.scrollLeft <= 0);
-        this.nextBtn.classList.toggle('disabled', this.container.scrollLeft >= maxScroll - 10);
+        };
+        requestAnimationFrame(step);
     }
 }
 

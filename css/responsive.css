@@ -145,3 +145,128 @@
     .footer-col p { font-size: 13px; }
     .footer-col h3, .footer-col h4 { font-size: 18px; }
 }
+
+/* ── Additional Global Responsive Fixes ─────────────────────── */
+
+/* Prevent horizontal overflow on all screen sizes */
+html, body { overflow-x: hidden; max-width: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+.container { padding-left: 20px; padding-right: 20px; }
+
+/* ── Tablet (≤ 1024px) ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+    /* Our Products */
+    .our-products-section { padding: 70px 0; }
+    .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    /* Machine Vision */
+    .machine-vision-section { padding: 60px 0; }
+    .vision-solution-item { gap: 36px; }
+    .vision-solution-content h3 { font-size: 24px; }
+
+    /* Features */
+    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    /* Inspect section arrows */
+    .slider-nav-arrow { width: 42px; height: 42px; font-size: 16px; }
+}
+
+/* ── Mobile (≤ 768px) ──────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Sections */
+    .our-products-section { padding: 55px 0; }
+    .product-cards-grid { grid-template-columns: 1fr; gap: 20px; }
+    .product-card-image { height: 230px; }
+    .card-watermark { font-size: 34px; }
+    .discover-btn { width: 100%; justify-content: center; }
+
+    /* Machine Vision — single column, reorder image/text */
+    .machine-vision-section { padding: 50px 0; }
+    .machine-vision-section .section-header h2 { font-size: 26px; margin-bottom: 36px; }
+    .vision-solutions-wrapper { gap: 48px; }
+    .vision-solution-item { grid-template-columns: 1fr; gap: 24px; }
+    .vision-solution-item:nth-child(even) .vision-solution-image { order: -1; }
+    .vision-solution-content h3 { font-size: 22px; }
+    .vision-solution-content p { font-size: 14px; }
+
+    /* Features */
+    .features-grid { grid-template-columns: 1fr; }
+    .features.section-padding { padding: 50px 0; }
+    .feature-card { padding: 30px 24px; }
+
+    /* Welcome section */
+    .welcome-section { padding: 50px 0; }
+    .welcome-content h2 { font-size: 26px; }
+
+    /* Inspection carousel arrows */
+    .slider-nav-arrow { width: 36px; height: 36px; font-size: 14px; }
+    .inspect-products-section { padding: 50px 0; }
+
+    /* CTA */
+    .cta { padding: 50px 20px; }
+
+    /* We-Inspect page */
+    .inspection-categories { padding: 50px 0 60px; }
+    .main-title { font-size: 28px; }
+    .subtitle { font-size: 14px; }
+    .ticker-section { padding: 0; }
+
+    /* Footer */
+    .footer { padding: 50px 0 20px; }
+    .footer-bottom { padding: 16px 0; font-size: 13px; }
+}
+
+/* ── Small Mobile (≤ 480px) ────────────────────────────────── */
+@media (max-width: 480px) {
+    .container { padding-left: 16px; padding-right: 16px; }
+
+    /* Our Products */
+    .our-products-section { padding: 40px 0; }
+    .product-card-content h3 { font-size: 17px; }
+    .product-card-content p { font-size: 13px; }
+    .product-card-image { height: 200px; }
+    .card-watermark { font-size: 28px; }
+
+    /* Machine Vision */
+    .vision-solution-content h3 { font-size: 19px; }
+    .vision-solution-content p { font-size: 13px; }
+
+    /* Feature cards */
+    .feature-card { padding: 26px 18px; }
+    .feature-num { font-size: 36px; }
+
+    /* Banner */
+    .banner-section { height: 280px; }
+    .banner-content h1 { font-size: 22px; }
+    .banner-btn { padding: 10px 24px; font-size: 14px; }
+
+    /* Welcome */
+    .welcome-content h2 { font-size: 22px; }
+    .welcome-content p { font-size: 14px; }
+
+    /* Section headers */
+    .section-header h2 { font-size: 20px; }
+    .section-header p { font-size: 13px; }
+
+    /* CTA */
+    .cta h2 { font-size: 22px; }
+    .cta p { font-size: 14px; }
+    .cta .btn { padding: 11px 28px; font-size: 14px; }
+
+    /* Page header (beams section) */
+    .page-header h1 { font-size: 22px; }
+    .page-header p { font-size: 13px; }
+
+    /* We-Inspect */
+    .main-title { font-size: 22px; }
+    .category-card { padding: 30px 16px 26px; }
+    .card-title { font-size: 18px; }
+    .icon-circle { width: 90px; height: 90px; }
+    .icon-circle svg { width: 46px; height: 46px; }
+    .icon-wrapper { width: 106px; height: 106px; }
+
+    /* Footer */
+    .social-links a { width: 34px; height: 34px; font-size: 14px; }
+    .contact-info li { font-size: 13px; flex-direction: column; align-items: center; gap: 4px; }
+}

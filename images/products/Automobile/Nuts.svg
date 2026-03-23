@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="250" viewBox="0 0 300 250">
+  <rect width="300" height="250" fill="#f0f4ff" rx="12"/>
+  <!-- Hex nut -->
+  <polygon points="150,40 200,68 200,125 150,153 100,125 100,68" fill="none" stroke="#1a56db" stroke-width="8"/>
+  <polygon points="150,52 190,74 190,119 150,141 110,119 110,74" fill="#d6e4ff" stroke="#1a56db" stroke-width="2"/>
+  <circle cx="150" cy="96" r="25" fill="none" stroke="#1a56db" stroke-width="8"/>
+  <circle cx="150" cy="96" r="12" fill="#f0f4ff"/>
+  <!-- Thread lines on hole -->
+  <line x1="138" y1="84" x2="162" y2="108" stroke="#1a56db" stroke-width="2"/>
+  <line x1="143" y1="79" x2="162" y2="98" stroke="#1a56db" stroke-width="1.5"/>
+  <line x1="138" y1="89" x2="157" y2="108" stroke="#1a56db" stroke-width="1.5"/>
+  <text x="150" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a56db">Nuts</text>
+</svg>

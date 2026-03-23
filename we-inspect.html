@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bharat Vision Automation - Advanced Machine Vision Inspection for Pharmaceutical, Cosmetics and Automobile Industries">
     <title>We Inspect | Bharat Vision Automation</title>
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/we-inspect.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -266,7 +267,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <img src="logo.jpg" alt="Bharat Vision Automation Logo" class="footer-logo">
+                    <img src="logo.jpg" alt="Bharat Vision Automation Logo" class="footer-logo" loading="lazy">
                     <h3>Bharat Vision Automation</h3>
                     <p>Our journey as a leading manufacturer and developer of inspection machines in India has been driven by hard work, diligence, and a passion for creativity. We pride ourselves on creating state-of-the-art solutions that empower businesses to achieve unparalleled quality assurance.</p>
                     <div class="social-links">
@@ -322,25 +323,93 @@
         </div>
     </footer>
 
-    <script src="js/scroll-to-top.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/dark-mode.js"></script>
+    <script src="js/scroll-to-top.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
     <script>
-        // Scroll-reveal for category cards
-        const cards = document.querySelectorAll('.category-card');
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+    (function () {
+        var DONE = new WeakSet();
+
+        function reveal(el) {
+            if (DONE.has(el)) return;
+            DONE.add(el);
+            var type  = el.dataset.wiType  || 'fadeUp';
+            var delay = parseFloat(el.dataset.wiDelay || 0) * 1000;
+            setTimeout(function () {
+                el.classList.remove('wi-hidden');
+                void el.offsetWidth;
+                el.classList.add('wi-anim-' + type);
+                if (el.classList.contains('category-card')) el.classList.add('revealed');
+            }, delay);
+        }
+
+        function setup() {
+            /* page-header text — animate immediately */
+            [
+                { sel: '.main-title', type: 'fadeDown', delay: 0.15 },
+                { sel: '.subtitle',   type: 'fadeUp',   delay: 0.32 },
+            ].forEach(function (item) {
+                document.querySelectorAll(item.sel).forEach(function (el) {
+                    el.dataset.wiType  = item.type;
+                    el.dataset.wiDelay = item.delay;
+                    el.classList.add('wi-hidden');
+                    reveal(el);
+                });
+            });
+
+            /* everything else — scroll triggered */
+            var SCROLL = [
+                { sel: '.section-intro h2', type: 'fadeDown', stagger: 0,    delay: 0.0  },
+                { sel: '.section-intro p',  type: 'fadeUp',   stagger: 0,    delay: 0.12 },
+                { sel: '.category-card',    type: 'fadeUp',   stagger: 0.14, delay: 0.0  },
+                { sel: '.cta h2',           type: 'zoomIn',   stagger: 0,    delay: 0.0  },
+                { sel: '.cta p',            type: 'fadeUp',   stagger: 0,    delay: 0.12 },
+                { sel: '.cta .btn',         type: 'fadeUp',   stagger: 0,    delay: 0.24 },
+            ];
+
+            var targets = [];
+            SCROLL.forEach(function (item) {
+                document.querySelectorAll(item.sel).forEach(function (el, i) {
+                    el.dataset.wiType  = item.type;
+                    el.dataset.wiDelay = (item.delay + i * (item.stagger || 0)).toFixed(3);
+                    el.classList.add('wi-hidden');
+                    targets.push(el);
+                });
+            });
+
+            if (!targets.length) return;
+
+            /* Fallback: if IO not supported, reveal all after short wait */
+            if (!('IntersectionObserver' in window)) {
+                targets.forEach(function (el) { reveal(el); });
+                return;
+            }
+
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target);
+                        reveal(entry.target);
+                        obs.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.14 });
-            cards.forEach(card => observer.observe(card));
-        } else {
-            cards.forEach(card => card.classList.add('revealed'));
+            }, { threshold: 0.08, rootMargin: '0px 0px -10px 0px' });
+
+            targets.forEach(function (el) { obs.observe(el); });
+
+            /* Safety net: after 3s reveal anything still hidden */
+            setTimeout(function () {
+                targets.forEach(function (el) { reveal(el); });
+            }, 3000);
         }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setup);
+        } else {
+            setup();
+        }
+    }());
     </script>
+    <script src="js/beams-collision.js" defer></script>
+    <script src="js/constellation.js" defer></script>
 </body>
 </html>

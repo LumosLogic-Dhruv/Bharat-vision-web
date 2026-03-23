@@ -1,35 +1,33 @@
 // Pharmaceutical Products Dynamic Loader
 document.addEventListener('DOMContentLoaded', () => {
     const pharmaProducts = [
-        'Aluminium Caps Without Septa.png',
-        'Aluminium_cap.png',
-        'Flip off Seal.png',
-        'Glass Vials.png',
-        'Rubber Disc.png',
-        'Rubber stopper .png',
-        'Rubber stopper Blood Collection.png',
-        'Slotted rubber stopper.png'
+        { name: 'Rubber Disc', image: 'images/products/Pharmaceutical/Rubber Disc.png' },
+        { name: 'Rubber Stopper', image: 'images/products/Pharmaceutical/Rubber Stopper.png' },
+        { name: 'Rubber Stopper Blood Collection', image: 'images/products/Pharmaceutical/Rubber Stopper Blood Collection.png' },
+        { name: 'Slotted Rubber Stopper', image: 'images/products/Pharmaceutical/Slotted Rubber stopper.png' },
+        { name: 'Capsules Aluminium', image: 'images/products/Pharmaceutical/Capsules-Aluminium.png' },
+        { name: 'Aluminium Cap', image: 'images/products/Pharmaceutical/Aluminium Cap.png' },
+        { name: 'Closure Rubber', image: 'images/products/Pharmaceutical/Closure Rubber.png' },
+        { name: 'Flip off Seal', image: 'images/products/Pharmaceutical/Flip off Seal.png' },
+        { name: 'Glass Vials', image: 'images/products/Pharmaceutical/Glass Vials.png' }
     ];
 
     const grid = document.getElementById('pharmaProductsGrid');
-    
+
     pharmaProducts.forEach((product, index) => {
-        const productName = product.replace(/\.(png|jpg|jpeg)$/i, '').trim();
-        
         const card = document.createElement('div');
         card.className = 'product-card-new';
         card.style.animationDelay = `${index * 0.1}s`;
-        
+
         card.innerHTML = `
-            <div class="scrolling-text">${productName}</div>
             <div class="product-card-image">
-                <img src="images/products/Pharmaceutical/${product}" alt="${productName}" loading="lazy">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
             </div>
             <div class="product-card-content">
-                <h3>${productName}</h3>
+                <h3>${product.name}</h3>
             </div>
         `;
-        
+
         grid.appendChild(card);
     });
 

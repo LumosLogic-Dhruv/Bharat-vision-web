@@ -1,32 +1,29 @@
 // Automobile Products Dynamic Loader
 document.addEventListener('DOMContentLoaded', () => {
     const automobileProducts = [
-        'Bearings.png',
-        'Fasteners.png',
-        'Nuts.png',
-        'O Rings.png',
-        'Washers.png'
+        { name: 'Bearings', image: 'images/products/Automobile/Bearings.png' },
+        { name: 'Fasteners', image: 'images/products/Automobile/Fasteners.png' },
+        { name: 'Nuts', image: 'images/products/Automobile/Nuts.png' },
+        { name: 'O Rings', image: 'images/products/Automobile/O Rings.png' },
+        { name: 'Washers', image: 'images/products/Automobile/Washers.png' }
     ];
 
     const grid = document.getElementById('automobileProductsGrid');
-    
+
     automobileProducts.forEach((product, index) => {
-        const productName = product.replace(/\.(png|jpg|jpeg)$/i, '').trim();
-        
         const card = document.createElement('div');
         card.className = 'product-card-new';
         card.style.animationDelay = `${index * 0.1}s`;
-        
+
         card.innerHTML = `
-            <div class="scrolling-text">${productName}</div>
             <div class="product-card-image">
-                <img src="images/products/Automobile/${product}" alt="${productName}" loading="lazy">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
             </div>
             <div class="product-card-content">
-                <h3>${productName}</h3>
+                <h3>${product.name}</h3>
             </div>
         `;
-        
+
         grid.appendChild(card);
     });
 
