@@ -2,3 +2,5 @@
 *.md
 update-products.ps1
 test-products.html
+node_modules/
+package-lock.json

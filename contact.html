@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="css/dark-mode.css">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        (function() { emailjs.init({ publicKey: "MpeFXMDPtJHc7Hpeh" }); })();
+    </script>
 </head>
 <body>
     <header class="header">
@@ -274,5 +278,38 @@
     <script src="js/animation.js" defer></script>
     <script src="js/beams-collision.js" defer></script>
     <script src="js/constellation.js" defer></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('button[type="submit"]');
+            const successDiv = document.getElementById('formSuccess');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send('service_iprjvzb', 'template_j67g3nx', templateParams)
+                .then(function() {
+                    successDiv.textContent = 'Message sent successfully! We will get back to you soon.';
+                    successDiv.style.color = 'green';
+                    document.getElementById('contactForm').reset();
+                    btn.disabled = false;
+                    btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+                }, function(error) {
+                    console.error('EmailJS error:', JSON.stringify(error));
+                    successDiv.textContent = 'Failed to send. Error: ' + (error.text || JSON.stringify(error));
+                    successDiv.style.color = 'red';
+                    btn.disabled = false;
+                    btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+                });
+        });
+    </script>
 </body>
 </html>
