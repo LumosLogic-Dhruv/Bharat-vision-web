@@ -7,24 +7,28 @@ import * as THREE from 'three'
    The camera lens — clean. Model + studio light + pointer
    tracking only; no rings, particles or post-processing.
 ───────────────────────────────────────────────────────────── */
-// meshopt + WebP optimised copy of camera_lens.glb (10.8 MB → 1.2 MB)
-const LENS_URL = '/images/camera_lens.opt.glb'
+// zenit_6_camera.glb, meshopt + WebP optimised (81 MB → 2.1 MB)
+const LENS_URL = '/images/zenit_6_camera.opt.glb'
 const DEG = Math.PI / 180
 
 function LensModel() {
   const { scene } = useGLTF(LENS_URL)
   useMemo(() => {
-    const box = new THREE.Box3().setFromObject(scene)
+    // world matrices must be current, or quantised (meshopt) geometry measures ~12x too small
+    scene.scale.setScalar(1)
+    scene.position.set(0, 0, 0)
+    scene.updateMatrixWorld(true)
+    const box = new THREE.Box3().setFromObject(scene, true)
     const center = box.getCenter(new THREE.Vector3())
     const size = box.getSize(new THREE.Vector3())
-    const s = 2.35 / (Math.max(size.x, size.y, size.z) || 1)
+    const s = 3.1 / (Math.max(size.x, size.y, size.z) || 1)
     scene.scale.setScalar(s)
     scene.position.set(-center.x * s, -center.y * s, -center.z * s)
   }, [scene])
   // front glass (model's −X end) turned to face the viewer, with a
   // slight angle so the barrel's depth still reads
   return (
-    <group rotation={[DEG * 6, DEG * 78, 0]}>
+    <group rotation={[DEG * -8, DEG * -32, 0]}>
       <primitive object={scene} />
     </group>
   )

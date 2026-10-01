@@ -8,6 +8,7 @@ import Marquee from '../components/Marquee'
 import Specimen from '../components/Specimen'
 import { Eyebrow, Reveal, SplitLines } from '../components/Reveal'
 import { Arrow } from '../components/Button'
+import useAutoHover from '../lib/useAutoHover'
 
 const CAPABILITIES = [
   'Rubber Stopper Inspection', 'Plastic Cap Inspection', 'Glass Vial Inspection', 'Cosmetic Bottle Inspection',
@@ -67,6 +68,8 @@ function Stack() {
 }
 
 export default function WeInspect() {
+  const libRef = useRef(null)
+  useAutoHover(libRef)
   useTitle('We Inspect')
   return (
     <>
@@ -94,11 +97,13 @@ export default function WeInspect() {
           <Eyebrow index="03">The specimen library</Eyebrow>
           <SplitLines as="h2" className="h2">Components <em>we inspect.</em></SplitLines>
         </div>
+        <div ref={libRef}>
         <Reveal className="tray__grid" stagger={0.04} y={24}>
           {INSPECTION_ITEMS.map((it, i) => (
             <Specimen key={it.src} name={it.name} src={it.src} index={i} industry={it.industry} />
           ))}
         </Reveal>
+        </div>
       </section>
     </>
   )

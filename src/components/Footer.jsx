@@ -33,6 +33,7 @@ export default function Footer() {
   const { pathname } = useLocation()
   const markRef = useRef(null)
 
+  /* BHARAT VISION mark animation — disabled
   useLayoutEffect(() => {
     if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
@@ -45,6 +46,7 @@ export default function Footer() {
     }, markRef)
     return () => ctx.revert()
   }, [])
+  */
 
   const year = new Date().getFullYear()
 
@@ -100,11 +102,13 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* BHARAT VISION big mark — hidden
         <div className="ftr__mark" ref={markRef} aria-hidden="true">
           {'BHARAT VISION'.split('').map((c, i) => (
             <span key={i}>{c === ' ' ? ' ' : c}</span>
           ))}
         </div>
+        */}
 
         <div className="wrap ftr__bottom mono">
           <span>© {year} {COMPANY.name}. All rights reserved.</span>

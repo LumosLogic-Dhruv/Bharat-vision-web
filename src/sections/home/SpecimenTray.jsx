@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { INSPECTION_ITEMS, INDUSTRIES } from '../../data/site'
 import { Eyebrow, SplitLines } from '../../components/Reveal'
 import Specimen from '../../components/Specimen'
 import Button from '../../components/Button'
 import { ScrollTrigger } from '../../lib/scroll'
+import useAutoHover from '../../lib/useAutoHover'
 
 const FILTERS = [{ slug: 'all', name: 'All' }, ...INDUSTRIES]
 
 export default function SpecimenTray() {
   const [filter, setFilter] = useState('all')
+  const gridRef = useRef(null)
+  useAutoHover(gridRef)
   const items = INSPECTION_ITEMS.filter((it) => filter === 'all' || it.industry === filter)
   const current = INDUSTRIES.find((i) => i.slug === filter)
 
@@ -35,7 +38,7 @@ export default function SpecimenTray() {
           </LayoutGroup>
         </div>
 
-        <motion.div layout className="tray__grid" onLayoutAnimationComplete={() => ScrollTrigger.refresh()}>
+        <motion.div layout ref={gridRef} className="tray__grid" onLayoutAnimationComplete={() => ScrollTrigger.refresh()}>
           <AnimatePresence mode="popLayout">
             {items.map((it, i) => (
               <motion.div
